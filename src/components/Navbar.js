@@ -5,9 +5,17 @@ function Navbar({ cart, toggleCartView, viewCart }) {
   const navigate = useNavigate();
 
   const handleNavigation = () => {
-    navigate("/"); // Navigate to the main page
-    toggleCartView(); // Toggle the cart view
+    navigate("/"); // Navigate to the product list or main page
+    toggleCartView(); // Toggle cart view state
   };
+
+  // Determine button text based on cart state
+  let buttonText = "View Cart"; // Default state
+  if (cart.length > 0 && !viewCart) {
+    buttonText = `Added (${cart.length})`; // Items added, cart not open
+  } else if (viewCart) {
+    buttonText = "Add More"; // Cart is open
+  }
 
   return (
     <nav
@@ -33,8 +41,7 @@ function Navbar({ cart, toggleCartView, viewCart }) {
             cursor: "pointer",
           }}
         >
-          {cart.length > 0 ? `Added (${cart.length})` : "View Cart"}{" "}
-          {/* Dynamic Text */}
+          {buttonText} {/* Dynamic button text */}
         </button>
       </div>
     </nav>
