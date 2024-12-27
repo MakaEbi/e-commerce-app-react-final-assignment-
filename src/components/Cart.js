@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-function Cart({ cart, setCart }) {
+function Cart({ cart, setCart, setViewCart }) {
+  const navigate = useNavigate();
+
   const totalPrice = cart.reduce((total, item) => {
     return total + parseFloat(item.price.replace("$", ""));
   }, 0);
@@ -8,6 +11,13 @@ function Cart({ cart, setCart }) {
   const removeFromCart = (index) => {
     const updatedCart = cart.filter((_, i) => i !== index);
     setCart(updatedCart);
+  };
+
+  const handlePlaceOrder = () => {
+    alert("Order confirmed! We’ll start preparing it right away."); // Show notification
+    setCart([]); // Clear the cart
+    setViewCart(false); // Switch back to product list view
+    navigate("/"); // Navigate to the product list
   };
 
   return (
@@ -39,6 +49,20 @@ function Cart({ cart, setCart }) {
             ))}
           </ul>
           <h3>Total: ${totalPrice.toFixed(2)}</h3>
+          <button
+            onClick={handlePlaceOrder}
+            style={{
+              backgroundColor: "#28a745",
+              color: "white",
+              border: "none",
+              padding: "10px 20px",
+              borderRadius: "5px",
+              cursor: "pointer",
+              marginTop: "20px",
+            }}
+          >
+            Place an Order
+          </button>
         </>
       )}
     </div>

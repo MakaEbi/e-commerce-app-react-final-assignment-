@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function Navbar({ cart, toggleCartView }) {
+function Navbar({ cart, toggleCartView, viewCart }) {
   const navigate = useNavigate();
 
-  const handleToggleCart = () => {
-    navigate("/"); // Ensure we're on the "/" route
+  const handleNavigation = () => {
+    navigate("/"); // Navigate to the main page
     toggleCartView(); // Toggle the cart view
   };
 
@@ -23,7 +23,7 @@ function Navbar({ cart, toggleCartView }) {
       <h2>My E-Commerce App</h2>
       <div>
         <button
-          onClick={handleToggleCart}
+          onClick={handleNavigation}
           style={{
             backgroundColor: "white",
             color: "#007bff",
@@ -33,7 +33,8 @@ function Navbar({ cart, toggleCartView }) {
             cursor: "pointer",
           }}
         >
-          {cart.length > 0 ? `View Cart (${cart.length})` : "View Cart"}
+          {cart.length > 0 ? `Added (${cart.length})` : "View Cart"}{" "}
+          {/* Dynamic Text */}
         </button>
       </div>
     </nav>

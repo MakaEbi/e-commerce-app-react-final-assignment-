@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import ProductCard from "./ProductCard";
 
-function ProductList({ cart, setCart }) {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => response.json())
-      .then((data) => setProducts(data))
-      .catch((error) => console.error("Error fetching products:", error));
-  }, []);
+function ProductList({ cart, setCart, products, loading }) {
+  if (loading) {
+    return <p>Loading products...</p>; // Show a loading message while fetching
+  }
 
   return (
     <div
